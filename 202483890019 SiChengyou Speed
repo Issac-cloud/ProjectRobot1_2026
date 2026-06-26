@@ -1,0 +1,11 @@
+from microbit import display, Image, sleep
+import tinybit
+
+display.show(Image.HEART)
+
+speed_levels = [0, 50, 100, 150, 200, 255]
+
+while True:
+    for speed in speed_levels:
+        tinybit.car_run(speed, speed)
+        sleep(1000)
