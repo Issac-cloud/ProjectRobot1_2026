@@ -1,0 +1,24 @@
+from microbit import display, Image, sleep
+import tinybit
+
+SPEED = 150
+DELAY = 1000
+
+actions = [
+    (tinybit.car_run, (SPEED,), Image.ARROW_S),
+    (tinybit.car_back, (SPEED,), Image.ARROW_N),
+    (tinybit.car_left, (SPEED,), Image.ARROW_E),
+    (tinybit.car_right, (SPEED,), Image.ARROW_W),
+    (tinybit.car_spinleft, (SPEED,), Image.ARROW_E),
+    (tinybit.car_spinright, (SPEED,), Image.ARROW_W),
+    (tinybit.car_stop, (), None)
+]
+
+while True:
+    for func, args, arrow in actions:
+        func(*args)
+        if arrow is None:
+            display.clear()
+        else:
+            display.show(arrow)
+        sleep(DELAY)
