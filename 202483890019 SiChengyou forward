@@ -1,7 +1,0 @@
-from microbit import display, Image
-import tinybit
-
-DRIVE_SPEED = 150
-
-display.show(Image.ARROW_S)
-tinybit.car_run(DRIVE_SPEED, DRIVE_SPEED)
