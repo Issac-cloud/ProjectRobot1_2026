@@ -1,0 +1,40 @@
+from microbit import display, Image
+import tinybit
+
+FORWARD_POWER = 90
+TURN_POWER = 80
+
+display.show(Image.HEART)
+
+def fetch_sensor_pair():
+    left_val = tinybit.traking_sensor_L()
+    right_val = tinybit.traking_sensor_R()
+    return left_val, right_val
+
+def resolve_motion(sensor_left, sensor_right):
+    if sensor_left and sensor_right:
+        return 'stop'
+    if sensor_left and not sensor_right:
+        return 'left'
+    if not sensor_left and sensor_right:
+        return 'right'
+    return 'forward'
+
+def act_on_command(command):
+    if command == 'forward':
+        tinybit.car_run(FORWARD_POWER)
+    elif command == 'left':
+        tinybit.car_spinleft(TURN_POWER)
+    elif command == 'right':
+        tinybit.car_spinright(TURN_POWER)
+    else:
+        tinybit.car_stop()
+
+def loop():
+    while True:
+        left, right = fetch_sensor_pair()
+        action = resolve_motion(left, right)
+        act_on_command(action)
+
+if __name__ == "__main__":
+    loop()
